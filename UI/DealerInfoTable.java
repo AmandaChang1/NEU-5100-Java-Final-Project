@@ -12,35 +12,30 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.TreeSet;
 
-import com.neu.jan17.data.DealerReader;
+import com.neu.jan17.data.DealerData;
 import com.neu.jan17.data.Dealer;
 
 
 public class DealerInfoTable extends JFrame {
     JTable table;
-    JLabel label;
-    Dealer dealer = new Dealer();
-    DealerReader dealerReader = new DealerReader();
-    TreeSet<String> temp = new TreeSet<>();
+    private JLabel label;
+    private Dealer dealer = new Dealer();
+    private DealerData dealerData = new DealerData();
+    private TreeSet<String> temp = new TreeSet<>();
 
     public DealerInfoTable() {
         setSize(1000, 500);
         setLayout(new FlowLayout());
-
         String[] columnNames = {"NAME", "LANGUAGE", "URL"};
-        temp = dealerReader.DealersReader();
-
         String[][] data = new String[temp.size()][3];
         int i = 0;
         for (String s : temp) {
             data[i] = s.split("\\s+");
             i++;
         }
-
         label = new JLabel("You could find the most sutiable dealer for you here!");
         table = new JTable();
         table = new JTable(data, columnNames);
-        //table.setEnabled(false);
 
 
         table.addMouseListener(new MouseAdapter() {
@@ -95,22 +90,22 @@ public class DealerInfoTable extends JFrame {
         add(scrollPane);
     }
 
-    public static void openWebpage(URI uri) {
+    public void openWebpage(URI uri) {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
             try {
                 desktop.browse(uri);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Wrong URL");
             }
         }
     }
 
-    public static void openWebpage(URL url) {
+    public void openWebpage(URL url) {
         try {
             openWebpage(url.toURI());
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println("Wrong URL");
         }
     }
 
