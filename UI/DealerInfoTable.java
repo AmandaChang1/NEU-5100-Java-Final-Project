@@ -7,36 +7,34 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.TreeSet;
-
 import com.neu.jan17.data.DealerData;
 import com.neu.jan17.data.Dealer;
+import com.neu.jan17.data.UrlHandle;
 
 
 public class DealerInfoTable extends JFrame {
-    JTable table;
+    private JTable table;
     private JLabel label;
     private Dealer dealer = new Dealer();
     private DealerData dealerData = new DealerData();
-    private TreeSet<String> temp = new TreeSet<>();
+    private UrlHandle urlHandle = new UrlHandle();
+
 
     public DealerInfoTable() {
         setSize(1000, 500);
         setLayout(new FlowLayout());
         String[] columnNames = {"NAME", "LANGUAGE", "URL"};
-        String[][] data = new String[temp.size()][3];
-        int i = 0;
-        for (String s : temp) {
-            data[i] = s.split("\\s+");
-            i++;
+        Dealer[] dealersInfo = dealerData.getDealersData();
+        String[][] dealersInfoArr = new String[dealersInfo.length][3];
+        for(int i = 0; i < dealersInfo.length; i++){
+            dealersInfoArr[i][0] = dealersInfo[i].getId();
+            dealersInfoArr[i][1] = dealersInfo[i].getLocation();
+            dealersInfoArr[i][2] = dealersInfo[i].getUrl();
         }
         label = new JLabel("You could find the most sutiable dealer for you here!");
         table = new JTable();
-        table = new JTable(data, columnNames);
-
+        table = new JTable(dealersInfoArr, columnNames);
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -47,7 +45,7 @@ public class DealerInfoTable extends JFrame {
 
                 try {
                     URL res = new URL("http://" + url);
-                    openWebpage(res);
+                    urlHandle.openWebpage(res);
                 } catch (MalformedURLException e1) {
                     e1.printStackTrace();
                 }
@@ -82,31 +80,11 @@ public class DealerInfoTable extends JFrame {
             }
         });
 
-
         table.setPreferredScrollableViewportSize(new Dimension(800, 400));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(label);
         add(scrollPane);
-    }
-
-    public void openWebpage(URI uri) {
-        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-            try {
-                desktop.browse(uri);
-            } catch (Exception e) {
-                System.out.println("Wrong URL");
-            }
-        }
-    }
-
-    public void openWebpage(URL url) {
-        try {
-            openWebpage(url.toURI());
-        } catch (URISyntaxException e) {
-            System.out.println("Wrong URL");
-        }
     }
 
 }

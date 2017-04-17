@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 public class Dealer {
     private String id;
-    private String name;
+    private String location;
     private String url;
     public String getId() {
         return id;
@@ -15,11 +15,11 @@ public class Dealer {
     public void setId(String id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getLocation() {
+        return location;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setLocation(String location) {
+        this.location = location;
     }
     public String getUrl() {
         return url;

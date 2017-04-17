@@ -27,17 +27,17 @@ public class MainPage extends JFrame implements ActionListener {
         setTitle("Vehicle Management");
         setSize(1000, 500);
         customerButton.addActionListener(this);
+        customerButton.setActionCommand("Customer");
         dealerButton.addActionListener(this);
+        dealerButton.setActionCommand("Dealers");
         this.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
-        JButton button = (JButton) e.getSource();
-        String label = button.getText();
-        if (label.equals("Customer")) {
+        if (e.getActionCommand().equals("Customer")) {
             // redirect to Dealers Information
 
-        } else if (label.equals("Dealer")) {
+        } else if (e.getActionCommand().equals("Dealers")) {
             // redirect to Dealers Management Page
             MainPage.setVisible(false);
             dispose();
