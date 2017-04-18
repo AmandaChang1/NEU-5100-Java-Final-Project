@@ -7,7 +7,13 @@ public class SortInventory {
 
     public void sortVehiclesByYear(Inventory inventory) {
         arr = new ArrayList<Vehicle>(inventory.getVehicles());
-        Collections.sort(arr, (o1, o2) -> (o1.getYear()).compareTo(o2.getYear()));
+        Collections.sort(arr, Comparator.comparingInt(Vehicle::getYear));
+        inventory.setVehicles(arr);
+    }
+
+    public void sortVehiclesByYearReverse(Inventory inventory){
+        arr = new ArrayList<Vehicle>(inventory.getVehicles());
+        Collections.sort(arr, Comparator.comparingInt(Vehicle::getYear).reversed());
         inventory.setVehicles(arr);
     }
 
@@ -25,7 +31,13 @@ public class SortInventory {
 
     public void sortVehiclesByPrice(Inventory inventory){
         arr = new ArrayList<Vehicle>(inventory.getVehicles());
-        Collections.sort(arr, (o1, o2) -> (o1.getPrice()).compareTo(o2.getPrice()));
+        Collections.sort(arr, Comparator.comparingDouble(Vehicle::getPrice));
+        inventory.setVehicles(arr);
+    }
+
+    public void sortVehiclesByPriceReverse(Inventory inventory){
+        arr = new ArrayList<Vehicle>(inventory.getVehicles());
+        Collections.sort(arr, Comparator.comparingDouble(Vehicle::getPrice).reversed());
         inventory.setVehicles(arr);
     }
 
