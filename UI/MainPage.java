@@ -22,8 +22,18 @@ public class MainPage extends JFrame implements ActionListener {
         background.setLayout(new FlowLayout());
         customerButton = new JButton("Customer");
         dealerButton = new JButton("Dealer");
-        background.add(customerButton);
-        background.add(dealerButton);
+        vehicleManagementTextField = new JTextField("Vehicle Management");
+        vehicleManagementTextField.setEditable(false);
+        vehicleManagementTextField.setOpaque(false);
+        vehicleManagementTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        background.add(vehicleManagementTextField);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.add(customerButton);
+        bottomPanel.add(dealerButton);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        //background.setLayout(new BoxLayout(background,BoxLayout.Y_AXIS));
         setTitle("Vehicle Management");
         setSize(1000, 500);
         customerButton.addActionListener(this);
@@ -39,7 +49,7 @@ public class MainPage extends JFrame implements ActionListener {
 
         } else if (e.getActionCommand().equals("Dealers")) {
             // redirect to Dealers Management Page
-            MainPage.setVisible(false);
+            //MainPage.setVisible(false);
             dispose();
             dealerInfoTable.setVisible(true);
         }
