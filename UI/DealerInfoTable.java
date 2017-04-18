@@ -1,28 +1,48 @@
 package com.neu.jan17.UI;
 
-import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.neu.jan17.data.DealerData;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+
 import com.neu.jan17.data.Dealer;
+import com.neu.jan17.data.DealerData;
+import com.neu.jan17.data.UrlHandle;
+import com.neu.jan17.data.Dealer;
+import com.neu.jan17.data.DealerData;
 import com.neu.jan17.data.UrlHandle;
 
-
-public class DealerInfoTable extends JFrame {
+public class DealerInfoTable extends JFrame implements ActionListener {
     private JTable table;
     private JLabel label;
+    private JButton backButton;
+    private JButton manageButton;
     private Dealer dealer = new Dealer();
     private DealerData dealerData = new DealerData();
     private UrlHandle urlHandle = new UrlHandle();
+    private JPanel MainPage = new JPanel();
+    private JPanel dealerInfoTable = new JPanel();
+    private MainPage mainPage;
 
 
     public DealerInfoTable() {
-        setSize(1000, 500);
+        setSize(700, 700);
         setLayout(new FlowLayout());
         String[] columnNames = {"NAME", "LANGUAGE", "URL"};
         Dealer[] dealersInfo = dealerData.getDealersData();
@@ -35,6 +55,13 @@ public class DealerInfoTable extends JFrame {
         label = new JLabel("You could find the most sutiable dealer for you here!");
         table = new JTable();
         table = new JTable(dealersInfoArr, columnNames);
+        backButton = new JButton("Back");
+        manageButton = new JButton("Manage Vehicles");
+
+        backButton.addActionListener(this);
+        backButton.setActionCommand("Back");
+        manageButton.addActionListener(this);
+        manageButton.setActionCommand("Manage");
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -80,11 +107,31 @@ public class DealerInfoTable extends JFrame {
             }
         });
 
-        table.setPreferredScrollableViewportSize(new Dimension(800, 400));
+        table.setPreferredScrollableViewportSize(new Dimension(500, 500));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(label);
         add(scrollPane);
+        JPanel bottomButton = new JPanel();
+        bottomButton.setLayout(new FlowLayout(FlowLayout.CENTER));
+        bottomButton.add(backButton);
+        bottomButton.add(manageButton);
+        add(bottomButton,BorderLayout.SOUTH);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        JButton backButton = (JButton) e.getSource();
+        JButton manageButton = (JButton) e.getSource();
+        if (e.getActionCommand().equals("Back")) {
+            // redirect to the main page
+            dealerInfoTable.setVisible(false);
+            dispose();
+            mainPage = new MainPage();
+
+
+        } else if (e.getActionCommand().equals("Manage")) {
+            // redirect to team 4's page
+        }
     }
 
 }

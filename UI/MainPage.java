@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class MainPage extends JFrame implements ActionListener {
-    private JTextField vehicleManagementTextField;
+    private JTextField title;
     private JButton customerButton;
     private JButton dealerButton;
     private JPanel MainPage = new JPanel();
@@ -21,15 +21,20 @@ public class MainPage extends JFrame implements ActionListener {
         add(background);
         background.setLayout(new FlowLayout());
         customerButton = new JButton("Customer");
+        customerButton.setPreferredSize(new Dimension(100, 50));
         dealerButton = new JButton("Dealer");
-        vehicleManagementTextField = new JTextField("Vehicle Management");
-        vehicleManagementTextField.setEditable(false);
-        vehicleManagementTextField.setOpaque(false);
-        vehicleManagementTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        background.add(vehicleManagementTextField);
+        dealerButton.setPreferredSize(new Dimension(100,50));
+        title = new JTextField("Vehicle Management");
+        Font font1 = new Font("SansSerif", Font.BOLD, 20);
+        title.setFont(font1);
+        title.setEditable(false);
+        title.setOpaque(false);
+        title.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        background.add(title);
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.add(customerButton);
+        bottomPanel.add(Box.createRigidArea(new Dimension(200,0)));
         bottomPanel.add(dealerButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
